@@ -1,6 +1,6 @@
 using Godot;
 
-namespace GodotBackgroundSimulation.Scripts;
+namespace GodotBackgroundSimulation.Scripts.GodotScripts;
 
 public partial class TimeManager : Node
 {
@@ -8,6 +8,7 @@ public partial class TimeManager : Node
 
    public override void _Ready()
    {
+      GD.Print("TimeManager");
       ElapsedTime = 0;
    }
 

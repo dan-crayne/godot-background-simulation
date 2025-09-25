@@ -1,11 +1,16 @@
 using GodotBackgroundSimulation.Scripts.Enums;
+using godotbackgroundsimulation.Scripts.Interfaces;
 
 namespace GodotBackgroundSimulation.Scripts.GameEntities.ResourceProviders;
 
-public class ResourceProviderData
+public class ResourceProvider : GameEntity, IHourlyUpdatedEntity
 {
-    public string Id { get; set; }
-    public GameEntityTypes Type { get; set; }
-    public int CurrentHealth { get; set; }
+    public ResourceProviderTypes Type { get; set; }
+    public float CurrentHealth { get; set; }
     public float CurrentGrowth { get; set; }
+
+    public void HourlyUpdateTasks()
+    {
+        CurrentGrowth += 1;
+    }
 }

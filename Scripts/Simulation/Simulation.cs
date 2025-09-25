@@ -1,4 +1,4 @@
-namespace godotbackgroundsimulation.Scripts.Simulation;
+namespace GodotBackgroundSimulation.Scripts.Simulation;
 
 public class Simulation
 {

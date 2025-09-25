@@ -1,4 +1,4 @@
-namespace GodotBackgroundSimulation.Scripts.GameEntities.Map;
+namespace GodotBackgroundSimulation.Scripts.GameEntities.Map.MapCellDefinitions;
 
 public struct NormalGround() : IMapCellDefinition
 {

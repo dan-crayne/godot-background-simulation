@@ -1,4 +1,4 @@
-namespace GodotBackgroundSimulation.Scripts.GameEntities;
+namespace GodotBackgroundSimulation.Scripts.GameEntities.Creatures;
 
 public class NonPlayerCreature : Creature
 {
