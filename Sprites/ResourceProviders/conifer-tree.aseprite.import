@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://gfc6o0684g31"
+path="res://.godot/imported/conifer-tree.aseprite-b8e9a5e0043ffc3c980507cd759e6576.res"
+
+[deps]
+
+source_file="res://Sprites/ResourceProviders/conifer-tree.aseprite"
+dest_files=["res://.godot/imported/conifer-tree.aseprite-b8e9a5e0043ffc3c980507cd759e6576.res"]
+
+[params]
+

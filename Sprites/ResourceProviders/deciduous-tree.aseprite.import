@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://dob71nhwvf5xj"
+path="res://.godot/imported/deciduous-tree.aseprite-d44b937f93749781ceaae6be32ed5692.res"
+
+[deps]
+
+source_file="res://Sprites/ResourceProviders/deciduous-tree.aseprite"
+dest_files=["res://.godot/imported/deciduous-tree.aseprite-d44b937f93749781ceaae6be32ed5692.res"]
+
+[params]
+

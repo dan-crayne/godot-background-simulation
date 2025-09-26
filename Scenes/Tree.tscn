@@ -1,0 +1,64 @@
+[gd_scene load_steps=4 format=4 uid="uid://chln80jhls2l1"]
+
+[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_0rvk3"]
+_data = PackedByteArray("AAADAAUAAAABAAAAEAAAABAAAABiAAAAUklGRloAAABXRUJQVlA4TE0AAAAvD8ADEBcgFkzxtAKMQIAyVdhKIJCktD/c8x+g9w1qamvJ4NukBaspGI1hlC8Ko8ea/xEi+j8B8pEg0tJ6CQ0VIRYijRg1bc7mzUNDFwA=")
+size_override = Vector2(16, 16)
+
+[sub_resource type="Animation" id="Animation_gtca3"]
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_itkj8"]
+_data = {
+&"default": SubResource("Animation_gtca3")
+}
+
+[node name="Tree" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = SubResource("PortableCompressedTexture2D_0rvk3")
+centered = false
+hframes = 2
+vframes = 2
+metadata/_aseprite_wizard_interface_config_ = {
+"layer_section": false,
+"pending_changes": {},
+"slice_section": false
+}
+metadata/_aseprite_wizard_config_ = {
+"convert_fps_field": 60.0,
+"convert_ms_field": 16.0,
+"convert_to_fps": false,
+"embed_tex": true,
+"i_mode": 0,
+"keep_anim_length": false,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "AnimationPlayer",
+"scale": "1.0",
+"slice": "",
+"source": "res://Sprites/ResourceProviders/conifer-tree.aseprite",
+"source_uid": 431632519595835266
+}
+metadata/_aseprite_wizard_source_file_hash_ = "61381811b41f19e69bdd5dff8170b08f"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_itkj8")
+}

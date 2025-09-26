@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://dg6niunfdfmy8"]
+[gd_scene load_steps=22 format=4 uid="uid://dg6niunfdfmy8"]
 
 [ext_resource type="Script" uid="uid://dypayc0djym7v" path="res://Scripts/GodotScripts/Main.cs" id="1_jjgbg"]
 [ext_resource type="Script" uid="uid://clid84gwevre6" path="res://Scripts/GodotScripts/TimeManager.cs" id="2_8gbba"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://wyjwsxdltex5" path="res://Sprites/Tiles/tileset.png" id="4_jjvhh"]
 [ext_resource type="Script" uid="uid://dcwncjkk0k3oy" path="res://Scripts/GodotScripts/WorldSketcher.cs" id="5_kry3j"]
 [ext_resource type="Script" uid="uid://bpi0rcxkt85qe" path="res://addons/Fantail-Interactive.top_down_camera/td_camera_2d.gd" id="6_21xkr"]
+[ext_resource type="Script" uid="uid://c300g4mdq2dn2" path="res://Scripts/GodotScripts/PlayerController.cs" id="7_6bp64"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kry3j"]
 texture = ExtResource("4_jjvhh")
@@ -40,6 +41,119 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kry3j"]
 _data = {
 &"default": SubResource("Animation_jjvhh")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_21xkr"]
+radius = 8.0
+
+[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_21xkr"]
+_data = PackedByteArray("AAADAAUAAAABAAAAIAAAABgAAAC4AAAAUklGRrAAAABXRUJQVlA4TKQAAAAvH8AFEDdAJmCxHk5+FfSPIw2ZgMVK6KWqTFrwkIlg/KqPM+tfRQXD/Afgz+VSkacry8AqkmQn80LxHRTwzgIGUIEE/Hu4WCiI6L8it22b5BQ5HfoG9yDpd4N7RPzb4A25dI0Cfolk/FiGYx5o0Byf+sCE6TjTTAXvr+Ad8h+8Y2fNMufWMuc5S96j5D0ifiXeWo6Le6CBLDiXydhT/qjzo1wzAA==")
+size_override = Vector2(32, 24)
+
+[sub_resource type="Animation" id="Animation_hptm8"]
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [4, 7]
+}
+
+[sub_resource type="Animation" id="Animation_ynf5e"]
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [4, 5, 6]
+}
+
+[sub_resource type="Animation" id="Animation_6bp64"]
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_344ge"]
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_6iyac"]
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [8, 11]
+}
+
+[sub_resource type="Animation" id="Animation_d1ilt"]
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [8, 9, 10]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fdnlq"]
+_data = {
+&"back-idle": SubResource("Animation_hptm8"),
+&"back-walk": SubResource("Animation_ynf5e"),
+&"front-idle": SubResource("Animation_6bp64"),
+&"front-walk": SubResource("Animation_344ge"),
+&"side-idle": SubResource("Animation_6iyac"),
+&"side-walk": SubResource("Animation_d1ilt")
 }
 
 [node name="Main" type="Node2D"]
@@ -105,3 +219,50 @@ metadata/_aseprite_wizard_source_file_hash_ = "61381811b41f19e69bdd5dff8170b08f"
 libraries = {
 &"": SubResource("AnimationLibrary_kry3j")
 }
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+script = ExtResource("7_6bp64")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+scale = Vector2(0.5, 0.5)
+shape = SubResource("CircleShape2D_21xkr")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+texture_filter = 1
+texture = SubResource("PortableCompressedTexture2D_21xkr")
+hframes = 4
+vframes = 3
+frame = 4
+metadata/_aseprite_wizard_interface_config_ = {
+"animation_section": false,
+"layer_section": false,
+"output_section": false,
+"pending_changes": {},
+"slice_section": false
+}
+metadata/_aseprite_wizard_config_ = {
+"convert_fps_field": 60.0,
+"convert_ms_field": 16.0,
+"convert_to_fps": false,
+"embed_tex": true,
+"i_mode": 0,
+"keep_anim_length": false,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "CharacterBody2D/Sprite2D/AnimationPlayer",
+"scale": "1.0",
+"slice": "",
+"source": "res://Sprites/Characters/player.aseprite",
+"source_uid": 2874768981085349113
+}
+metadata/_aseprite_wizard_source_file_hash_ = "2a618d5f9b7ca7d3f1606083a10c57bd"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterBody2D"]
+root_node = NodePath("../Sprite2D")
+libraries = {
+&"": SubResource("AnimationLibrary_fdnlq")
+}
+speed_scale = 0.75
