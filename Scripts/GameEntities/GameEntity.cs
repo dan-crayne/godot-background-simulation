@@ -12,4 +12,9 @@ public class GameEntity(GameEntityId id, Vector2 position, float updateInterval 
     public GameEntity() : this(new GameEntityId(), new Vector2(), GameTimeIntervals.Day)
     {
     }
+
+    public virtual string GetScenePath()
+    {
+        return "res://Scenes/Placeholders/Placeholder.tscn";
+    }
 }

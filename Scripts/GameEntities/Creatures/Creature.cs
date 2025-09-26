@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Godot;
-using godotbackgroundsimulation.Scripts.Interfaces;
+using GodotBackgroundSimulation.Scripts.Interfaces;
 
 namespace GodotBackgroundSimulation.Scripts.GameEntities.Creatures;
 

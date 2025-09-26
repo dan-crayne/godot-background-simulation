@@ -1,6 +1,6 @@
 using Godot;
 
-namespace GodotBackgroundSimulation.Scripts.GameEntities.Map;
+namespace GodotBackgroundSimulation.Scripts.Map;
 
 public class MapCell(Vector2 position, MapCellTypes type, float moisture, float nutrients)
 {

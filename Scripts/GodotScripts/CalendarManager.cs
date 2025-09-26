@@ -12,10 +12,10 @@ public partial class CalendarManager : Node
    public static event Action OnYearAdvanced;
 
    private TimeManager _timeManager;
-   private int _lastHour;
-   private int _lastDay;
-   private int _lastSeason;
-   private int _lastYear;
+   private int _previousHour;
+   private int _previousDay;
+   private int _previousSeason;
+   private int _previousYear;
 
    public override void _Ready()
    {
@@ -30,17 +30,17 @@ public partial class CalendarManager : Node
 
    public int GetHour()
    {
-      return (int)(_timeManager?.GetElapsedTime() % GameTimeIntervals.Day ?? 0);
+      return (int)(_timeManager?.GetElapsedTime() / GameTimeIntervals.Hour ?? 0);
    }
 
    public int GetDay()
    {
-      return (int)(_timeManager?.GetElapsedTime() % GameTimeIntervals.Season ?? 0);
+      return (int)(_timeManager?.GetElapsedTime() / GameTimeIntervals.Day ?? 0);
    }
 
    public int GetSeason()
    {
-      return (int)(_timeManager?.GetElapsedTime() % GameTimeIntervals.Year ?? 0);
+      return (int)(_timeManager?.GetElapsedTime() / GameTimeIntervals.Season ?? 0);
    }
 
    public int GetYear()
@@ -51,28 +51,30 @@ public partial class CalendarManager : Node
    public override void _Process(double deltaTime)
    {
       var currentHour = GetHour();
-      if (currentHour > _lastHour)
+      if (currentHour > _previousHour)
       {
-         _lastHour = currentHour + 1;
+         GD.Print($"Previous: {_previousHour}; current hour: {currentHour}");
+         _previousHour = currentHour;
          OnHourAdvanced?.Invoke();
       }
       var currentDay = GetDay();
-      if (currentDay > _lastDay)
+      if (currentDay > _previousDay)
       {
-         _lastDay = currentDay + 1;
+         GD.Print($"Previous: {_previousDay}; current hour: {currentDay}");
+         _previousDay = currentDay;
          OnDayAdvanced?.Invoke();
       }
       var currentSeason = GetSeason();
-      if (currentSeason > _lastSeason)
+      if (currentSeason > _previousSeason)
       {
-         _lastSeason = currentSeason + 1;
+         _previousSeason = currentSeason;
          OnSeasonAdvanced?.Invoke();
       }
 
       var currentYear = GetYear();
-      if (currentYear > _lastYear)
+      if (currentYear > _previousYear)
       {
-         _lastYear = currentYear;
+         _previousYear = currentYear;
          OnYearAdvanced?.Invoke();
       }
    }

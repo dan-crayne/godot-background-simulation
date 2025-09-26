@@ -1,16 +1,29 @@
-using GodotBackgroundSimulation.Scripts.Enums;
-using godotbackgroundsimulation.Scripts.Interfaces;
+using GodotBackgroundSimulation.Scripts.Interfaces;
+using GodotBackgroundSimulation.Scripts.Constants;
+using Godot;
 
 namespace GodotBackgroundSimulation.Scripts.GameEntities.ResourceProviders;
 
 public class ResourceProvider : GameEntity, IHourlyUpdatedEntity
 {
-    public ResourceProviderTypes Type { get; set; }
-    public float CurrentHealth { get; set; }
-    public float CurrentGrowth { get; set; }
+    private ResourceProviderTemplate _template;
+    private float _currentHealth;
+    private float _currentGrowth;
 
+    public ResourceProvider(ResourceProviderTemplate template, Vector2 position) : base(new GameEntityId(), position, GameTimeIntervals.Hour)
+    {
+        _template = template;
+        _currentGrowth = 0;
+        _currentHealth = template.GrowthSchedule.GrowthStages[0].healthAtStage;
+    }
+    
     public void HourlyUpdateTasks()
     {
-        CurrentGrowth += 1;
+        _currentGrowth += 1;
+    }
+
+    public override string GetScenePath()
+    {
+        return _template.ScenePath;
     }
 }

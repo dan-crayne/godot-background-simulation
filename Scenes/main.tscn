@@ -1,14 +1,107 @@
-[gd_scene load_steps=4 format=3 uid="uid://dg6niunfdfmy8"]
+[gd_scene load_steps=12 format=4 uid="uid://dg6niunfdfmy8"]
 
 [ext_resource type="Script" uid="uid://dypayc0djym7v" path="res://Scripts/GodotScripts/Main.cs" id="1_jjgbg"]
 [ext_resource type="Script" uid="uid://clid84gwevre6" path="res://Scripts/GodotScripts/TimeManager.cs" id="2_8gbba"]
 [ext_resource type="Script" uid="uid://13m8yughfec2" path="res://Scripts/GodotScripts/CalendarManager.cs" id="3_jjvhh"]
+[ext_resource type="Texture2D" uid="uid://wyjwsxdltex5" path="res://Sprites/Tiles/tileset.png" id="4_jjvhh"]
+[ext_resource type="Script" uid="uid://dcwncjkk0k3oy" path="res://Scripts/GodotScripts/WorldSketcher.cs" id="5_kry3j"]
+[ext_resource type="Script" uid="uid://bpi0rcxkt85qe" path="res://addons/Fantail-Interactive.top_down_camera/td_camera_2d.gd" id="6_21xkr"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kry3j"]
+texture = ExtResource("4_jjvhh")
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+0:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_8gbba"]
+tile_size = Vector2i(8, 8)
+sources/0 = SubResource("TileSetAtlasSource_kry3j")
+
+[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_8gbba"]
+_data = PackedByteArray("AAADAAUAAAABAAAAEAAAABAAAABiAAAAUklGRloAAABXRUJQVlA4TE0AAAAvD8ADEBcgFkzxtAKMQIAyVdhKIJCktD/c8x+g9w1qamvJ4NukBaspGI1hlC8Ko8ea/xEi+j8B8pEg0tJ6CQ0VIRYijRg1bc7mzUNDFwA=")
+size_override = Vector2(16, 16)
+
+[sub_resource type="Animation" id="Animation_jjvhh"]
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kry3j"]
+_data = {
+&"default": SubResource("Animation_jjvhh")
+}
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_jjgbg")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+script = ExtResource("6_21xkr")
+min_zoom = 4.0
+max_zoom = 1.0
 
 [node name="TimeManager" type="Node" parent="."]
 script = ExtResource("2_8gbba")
 
 [node name="CalendarManager" type="Node" parent="."]
 script = ExtResource("3_jjvhh")
+
+[node name="WorldSketcher" type="Node" parent="." node_paths=PackedStringArray("TileMapLayer")]
+script = ExtResource("5_kry3j")
+TileMapLayer = NodePath("../Ground")
+NormalGroundAtlasPosition = Vector2i(0, 1)
+
+[node name="Ground" type="TileMapLayer" parent="."]
+texture_filter = 1
+tile_set = SubResource("TileSet_8gbba")
+
+[node name="Conifer" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = SubResource("PortableCompressedTexture2D_8gbba")
+centered = false
+hframes = 2
+vframes = 2
+metadata/_aseprite_wizard_interface_config_ = {
+"animation_section": true,
+"layer_section": true,
+"output_section": true,
+"pending_changes": {},
+"slice_section": true
+}
+metadata/_aseprite_wizard_config_ = {
+"convert_fps_field": 60.0,
+"convert_ms_field": 16.0,
+"convert_to_fps": false,
+"embed_tex": true,
+"i_mode": 0,
+"keep_anim_length": false,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "Sprite2D/AnimationPlayer",
+"scale": "1.0",
+"slice": "",
+"source": "res://Sprites/ResourceProviders/conifer-tree.aseprite",
+"source_uid": 431632519595835266
+}
+metadata/_aseprite_wizard_source_file_hash_ = "61381811b41f19e69bdd5dff8170b08f"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Conifer"]
+libraries = {
+&"": SubResource("AnimationLibrary_kry3j")
+}

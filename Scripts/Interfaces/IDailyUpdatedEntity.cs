@@ -1,4 +1,4 @@
-namespace godotbackgroundsimulation.Scripts.Interfaces;
+namespace GodotBackgroundSimulation.Scripts.Interfaces;
 
 public interface IDailyUpdatedEntity
 {
