@@ -53,14 +53,12 @@ public partial class CalendarManager : Node
       var currentHour = GetHour();
       if (currentHour > _previousHour)
       {
-         GD.Print($"Previous: {_previousHour}; current hour: {currentHour}");
          _previousHour = currentHour;
          OnHourAdvanced?.Invoke();
       }
       var currentDay = GetDay();
       if (currentDay > _previousDay)
       {
-         GD.Print($"Previous: {_previousDay}; current hour: {currentDay}");
          _previousDay = currentDay;
          OnDayAdvanced?.Invoke();
       }

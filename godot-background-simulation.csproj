@@ -6,6 +6,7 @@
     <RootNamespace>godotbackgroundsimulation</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Folder Include="Scripts\Enums\" />
     <Folder Include="Scripts\GodotScripts\GameEntities\" />
   </ItemGroup>
 </Project>

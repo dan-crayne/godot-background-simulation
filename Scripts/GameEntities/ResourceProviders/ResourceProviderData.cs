@@ -12,10 +12,10 @@ public static class ResourceProviderData
       {
          GrowthStages = new List<GrowthStage>
          {
-            new GrowthStage { growthRequired = 0, healthAtStage = 50 },
-            new GrowthStage { growthRequired = 100, healthAtStage = 100 },
-            new GrowthStage { growthRequired = 300, healthAtStage = 200 },
-            new GrowthStage { growthRequired = 600, healthAtStage = 300 }
+            new GrowthStage { GrowthRequired = 0, HealthAtStage = 50 },
+            new GrowthStage { GrowthRequired = 3, HealthAtStage = 100 },
+            new GrowthStage { GrowthRequired = 4, HealthAtStage = 200 },
+            new GrowthStage { GrowthRequired = 5, HealthAtStage = 300 }
          }
       },
       ScenePath = "res://Scenes/Tree.tscn"
@@ -29,10 +29,10 @@ public static class ResourceProviderData
       {
          GrowthStages = new List<GrowthStage>
          {
-            new GrowthStage { growthRequired = 0, healthAtStage = 40 },
-            new GrowthStage { growthRequired = 120, healthAtStage = 90 },
-            new GrowthStage { growthRequired = 350, healthAtStage = 220 },
-            new GrowthStage { growthRequired = 700, healthAtStage = 320 }
+            new GrowthStage { GrowthRequired = 0, HealthAtStage = 40 },
+            new GrowthStage { GrowthRequired = 120, HealthAtStage = 90 },
+            new GrowthStage { GrowthRequired = 350, HealthAtStage = 220 },
+            new GrowthStage { GrowthRequired = 700, HealthAtStage = 320 }
          }
       },
       ScenePath = "res://Scenes/Tree.tscn"
@@ -46,9 +46,9 @@ public static class ResourceProviderData
       {
          GrowthStages = new List<GrowthStage>
          {
-            new GrowthStage { growthRequired = 0, healthAtStage = 30 },
-            new GrowthStage { growthRequired = 50, healthAtStage = 80 },
-            new GrowthStage { growthRequired = 150, healthAtStage = 150 }
+            new GrowthStage { GrowthRequired = 0, HealthAtStage = 30 },
+            new GrowthStage { GrowthRequired = 50, HealthAtStage = 80 },
+            new GrowthStage { GrowthRequired = 150, HealthAtStage = 150 }
          }
       }
    };
