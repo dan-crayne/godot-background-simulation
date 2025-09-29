@@ -10,7 +10,6 @@ public partial class Main : Node
     
     private WorldManager _worldManager;
     private WorldSketcher _worldSketcher;
-    private Node2D _entityContainer;
 
     public override void _Ready()
     {
@@ -46,6 +45,7 @@ public partial class Main : Node
     
     private void OnDayAdvanced()
     {
+        
     }
     
     private void OnSeasonAdvanced()

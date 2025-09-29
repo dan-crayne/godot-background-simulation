@@ -11,12 +11,15 @@ public partial class TreeVisual : GameEntityVisual
     {
     }
     
+    // Note: don't get this node with GetNode() as it will cause a memory leak
+    [Export]
+    public Sprite2D Sprite2D { get; set; }
+    
     public override void SyncVisualWithBackendEntity(GameEntity gameEntity)
     {
-        var sprite = GetNode<Sprite2D>("Sprite2D");
         if (gameEntity is ResourceProvider resourceProvider)
         {
-            sprite.Frame = resourceProvider.GetCurrentGrowthStage();
+            Sprite2D.Frame = resourceProvider.GetCurrentGrowthStage();
         }
         else
         {
