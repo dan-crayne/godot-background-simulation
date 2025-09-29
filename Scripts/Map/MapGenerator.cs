@@ -30,7 +30,7 @@ public class MapGenerator(WorldMap worldMapInstance, int entitiesToCreate)
         {
             for (int y = 0; y < worldMapInstance.Height; y++)
             {
-                worldMapInstance.MapCells[x, y] = new MapCell(new Godot.Vector2(x, y), MapCellTypes.GrowthGround, 20, 100);
+                worldMapInstance.MapCells[x, y] = new MapCell(new Vector2I(x, y), MapCellTypes.GrowthGround, 20, 100);
             }
         }
     }

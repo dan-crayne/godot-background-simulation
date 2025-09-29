@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 using GodotBackgroundSimulation.Scripts.GameEntities;
 
@@ -9,11 +10,11 @@ namespace GodotBackgroundSimulation.Scripts.Map;
 /// </summary>
 public class MapChunk()
 {
-    private MapCell[,] _mapCells;
-    private List<GameEntity>  _entities;
-    private Vector2I _chunkSize;
-    private Vector2I _chunkWorldPosition;
-    private WorldMap _worldMap;
+    public Vector2I ChunkWorldPosition { get; private set; }
+    
+    private readonly MapCell[,] _mapCells;
+    private List<GameEntity> _entities = [];
+    private readonly Vector2I _chunkSize;
     
     /// <summary>
     /// Creates a new MapChunk at the specified top-left position in the world map.
@@ -24,36 +25,32 @@ public class MapChunk()
     /// <param name="chunkSize"></param>
     public MapChunk(WorldMap worldMap, Vector2I chunkTopLeftPosition, Vector2I chunkSize) : this()
     {
-        _worldMap = worldMap;
         _chunkSize = chunkSize;
-        _chunkWorldPosition = chunkTopLeftPosition * chunkSize;
+        ChunkWorldPosition = chunkTopLeftPosition;
         _mapCells = new MapCell[chunkSize.X, chunkSize.Y];
         
-        LoadChunk();
+        LoadChunk(worldMap);
     }
     
-    private void LoadChunk()
+    private void LoadChunk(WorldMap worldMap)
     {
-        for (int x = 0; x < _chunkSize.X; x++)
+        for (var x = 0; x < _chunkSize.X; x++)
         {
-            for (int y = 0; y < _chunkSize.Y; y++)
+            for (var y = 0; y < _chunkSize.Y; y++)
             {
-                int worldX = _chunkWorldPosition.X + x;
-                int worldY = _chunkWorldPosition.Y + y;
+                var worldX = ChunkWorldPosition.X + x;
+                var worldY = ChunkWorldPosition.Y + y;
                 
-                if (worldX < _worldMap.Width && worldY < _worldMap.Height)
+                if (worldX < worldMap.Width && worldY < worldMap.Height && worldX >= 0 && worldY >= 0)
                 {
-                    _mapCells[x, y] = _worldMap.MapCells[worldX, worldY];
+                    _mapCells[x, y] = worldMap.MapCells[worldX, worldY];
                 }
             }
         }
-        
-        foreach (var entity in _worldMap.Entities)
+
+        foreach (var entity in worldMap.Entities.Where(entity => IsPositionInChunk(entity.Position)))
         {
-            if (IsPositionInChunk(entity.Position))
-            {
-                _entities.Add(entity);
-            }
+            _entities.Add(entity);
         }
     }
     
@@ -69,27 +66,27 @@ public class MapChunk()
     
     private bool IsPositionInChunk(Vector2 position)
     {
-        return position.X >= _chunkWorldPosition.X && position.X < (_chunkWorldPosition.X + _chunkSize.X) &&
-               position.Y >= _chunkWorldPosition.Y && position.Y < (_chunkWorldPosition.Y + _chunkSize.Y);
+        return position.X >= ChunkWorldPosition.X && position.X < (ChunkWorldPosition.X + _chunkSize.X) &&
+               position.Y >= ChunkWorldPosition.Y && position.Y < (ChunkWorldPosition.Y + _chunkSize.Y);
     }
 
     public bool IsPositionAtOrBeyondLeftEdge(Vector2I position)
     {
-        return position.X <= _chunkWorldPosition.X;
+        return position.X <= ChunkWorldPosition.X;
     }
     
     public bool IsPositionAtOrBeyondRightEdge(Vector2I position)
     {
-        return position.X >= (_chunkWorldPosition.X + _chunkSize.X - 1);
+        return position.X >= (ChunkWorldPosition.X + _chunkSize.X - 1);
     }
     
     public bool IsPositionAtOrAboveTopEdge(Vector2I position)
     {
-        return position.Y <= _chunkWorldPosition.Y;
+        return position.Y <= ChunkWorldPosition.Y;
     }
 
     public bool IsPositionAtOrBelowBottomEdge(Vector2I position)
     {
-        return position.Y >= (_chunkWorldPosition.Y + _chunkSize.Y - 1);
+        return position.Y >= (ChunkWorldPosition.Y + _chunkSize.Y - 1);
     }
 }

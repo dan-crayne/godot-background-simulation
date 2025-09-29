@@ -25,7 +25,9 @@ public partial class WorldSketcher : Node2D
       {
          for (int y = 0; y < mapCells.GetLength(1); y++)
          {
-           TileMapLayer.SetCell(new Vector2I(x, y), 0, NormalGroundAtlasPosition); 
+            var mapCellPositionX = mapCells[x, y].Position.X;
+            var mapCellPositionY = mapCells[x, y].Position.Y;
+            TileMapLayer.SetCell(new Vector2I(mapCellPositionX, mapCellPositionY), 0, NormalGroundAtlasPosition); 
          }
       }
    }
