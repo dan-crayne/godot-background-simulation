@@ -132,9 +132,10 @@ _data = {
 &"side-walk": SubResource("Animation_d1ilt")
 }
 
-[node name="Main" type="Node2D" node_paths=PackedStringArray("WorldContainer")]
+[node name="Main" type="Node2D" node_paths=PackedStringArray("WorldSketcher")]
+y_sort_enabled = true
 script = ExtResource("1_jw32o")
-WorldContainer = NodePath("World")
+WorldSketcher = NodePath("World/WorldSketcher")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
@@ -150,20 +151,23 @@ script = ExtResource("3_vy5pj")
 [node name="CalendarManager" type="Node" parent="."]
 script = ExtResource("4_bmxlf")
 
-[node name="WorldSketcher" type="Node" parent="." node_paths=PackedStringArray("TileMapLayer", "WorldNode", "TreeGameEntityPool")]
-script = ExtResource("5_4kpch")
-TileMapLayer = NodePath("../World/GroundTilemap")
-NormalGroundAtlasPosition = Vector2i(0, 1)
-WorldNode = NodePath("../World")
-TreeGameEntityPool = NodePath("TreeGameEntityPool")
-
-[node name="TreeGameEntityPool" type="Node" parent="WorldSketcher"]
-script = ExtResource("6_50glp")
-
 [node name="World" type="Node2D" parent="."]
 y_sort_enabled = true
 
+[node name="WorldSketcher" type="Node2D" parent="World" node_paths=PackedStringArray("TileMapLayer", "TreeGameEntityPool")]
+y_sort_enabled = true
+script = ExtResource("5_4kpch")
+TileMapLayer = NodePath("../GroundTilemap")
+NormalGroundAtlasPosition = Vector2i(0, 1)
+TreeGameEntityPool = NodePath("TreeGameEntityPool")
+
+[node name="TreeGameEntityPool" type="Node2D" parent="World/WorldSketcher"]
+y_sort_enabled = true
+script = ExtResource("6_50glp")
+
 [node name="GroundTilemap" type="TileMapLayer" parent="World"]
+z_index = -1
+y_sort_enabled = true
 texture_filter = 1
 tile_set = SubResource("TileSet_8gbba")
 

@@ -3,7 +3,7 @@ using Godot;
 
 namespace GodotBackgroundSimulation.Scripts.GodotScripts.GameEntities;
 
-public partial class GameEntityNodePool<T>(string entityScenePath, int numberToPreload = 100) : Node
+public partial class GameEntityNodePool<T>(string entityScenePath, int numberToPreload = 100) : Node2D
     where T : GameEntityVisual
 {
     protected readonly Queue<T> Pool = new ();

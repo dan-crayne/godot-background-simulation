@@ -7,16 +7,13 @@ using GodotBackgroundSimulation.Scripts.Map;
 
 namespace GodotBackgroundSimulation.Scripts.GodotScripts;
 
-public partial class WorldSketcher : Node
+public partial class WorldSketcher : Node2D
 {
    [Export]
    public TileMapLayer TileMapLayer { get; set; }
-   
    [Export]
    public Vector2I NormalGroundAtlasPosition { get; set; }
    
-   [Export]
-   public Node2D WorldNode { get; set; }
    [Export]
    public TreeGameEntityPool TreeGameEntityPool { get; set; }
 
