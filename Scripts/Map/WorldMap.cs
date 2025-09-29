@@ -3,23 +3,16 @@ using GodotBackgroundSimulation.Scripts.GameEntities;
 
 namespace GodotBackgroundSimulation.Scripts.Map;
 
-public class WorldMap
+public class WorldMap(int width, int height)
 {
-    public int Width { get; set; }
-    public int Height { get; set; }
-    public MapCell[,] MapCells { get; set; }
-    public List<GameEntity> Entities { get; set; } = new List<GameEntity>();
-    
-    public WorldMap(int width, int height)
-    {
-        Width = width;
-        Height = height;
-        MapCells = new MapCell[width, height];
-    }
+    public int Width { get; set; } = width;
+    public int Height { get; set; } = height;
+    public MapCell[,] MapCells { get; set; } = new MapCell[width, height];
+    public List<GameEntity> Entities { get; set; } = [];
 
-    public void GenerateSimpleRandomMap(int entities = 2000)
+    public void GenerateSimpleRandomMap(int totalEntities)
     {
-        var mapGenerator = new MapGenerator(this);
+        var mapGenerator = new MapGenerator(this, totalEntities);
         mapGenerator.GenerateSimpleMap();
     }
 }

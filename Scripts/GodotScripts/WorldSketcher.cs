@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using Godot;
 using GodotBackgroundSimulation.Scripts.Enums;
 using GodotBackgroundSimulation.Scripts.GameEntities;
-using GodotBackgroundSimulation.Scripts.GameEntities.ResourceProviders;
 using GodotBackgroundSimulation.Scripts.GodotScripts.GameEntities;
 using GodotBackgroundSimulation.Scripts.Map;
 
@@ -14,16 +13,15 @@ public partial class WorldSketcher : Node
    public TileMapLayer TileMapLayer { get; set; }
    
    [Export]
-   public Vector2I NormalGroundAtlasPosition { get; set; } = new Vector2I(0, 0);
+   public Vector2I NormalGroundAtlasPosition { get; set; }
    
    [Export]
    public Node2D WorldNode { get; set; }
-   
-   public override void _Ready()
-   {
-      GD.Print("WorldSketcher ready");
-   }
+   [Export]
+   public TreeGameEntityPool TreeGameEntityPool { get; set; }
 
+   private List<TreeVisual> ActiveTreeVisuals { get; set; } = [];
+   
    public void DrawMap(MapCell[,] mapCells)
    {
       for (int x = 0; x < mapCells.GetLength(0); x++)
@@ -35,27 +33,33 @@ public partial class WorldSketcher : Node
       }
    }
    
-   public void DrawEntities(Node entityContainer, List<GameEntity> entities)
+   public void DrawEntities(List<GameEntity> entities)
    {
-      foreach (GameEntity entity in entities)
+      foreach (var entity in entities)
       {
-         var scene = GD.Load<PackedScene>(entity.GetScenePath());
-         var instance = scene.Instantiate();
          if (entity.EntityType == GameEntityTypes.ResourceProvider)
          {
-            if (instance is TreeGameEntity tree)
-            {
-               tree.Position = entity.Position * TileMapLayer.TileSet.TileSize;
-               tree.GrowthStage = (entity as ResourceProvider).GetCurrentGrowthStage();
-            }
-            entityContainer.AddChild(instance);
+            var treeVisual = TreeGameEntityPool.Get();
+            treeVisual.Position = entity.Position * TileMapLayer.TileSet.TileSize;
+            treeVisual.GameEntityId = entity.Id;
+            treeVisual.Show();
+            ActiveTreeVisuals.Add(treeVisual);
          }
-         else if (instance is Node2D node2d)
+      }
+   }
+   
+   public void RefreshEntityVisuals(List<GameEntity> entities)
+   {
+      foreach (var treeVisual in ActiveTreeVisuals)
+      {
+         var entity = entities.Find(e => e.Id == treeVisual.GameEntityId);
+         if (entity == null)
          {
-            node2d.Position = entity.Position * TileMapLayer.TileSet.TileSize;
-            entityContainer.AddChild(instance);
+            GD.PrintErr($"Entity with ID {treeVisual.GameEntityId} not found");
+            continue;
          }
          
+         treeVisual.SyncVisualWithBackendEntity(entity);
       }
    }
 }

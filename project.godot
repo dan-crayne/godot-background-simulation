@@ -15,6 +15,10 @@ run/main_scene="uid://dg6niunfdfmy8"
 config/features=PackedStringArray("4.5", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GameManager="*res://Scripts/GodotScripts/GameManager.cs"
+
 [dotnet]
 
 project/assembly_name="godot-background-simulation"

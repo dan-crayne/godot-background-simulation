@@ -18,18 +18,18 @@ public partial class Main : Node
         if (_worldSketcher == null)
         {
             GD.PrintErr("Main: WorldSketcher not found");
+            return;
         }
         
         _worldManager = new WorldManager();
-        _worldManager.GenerateNewWorld(150, 225);
+        _worldManager.GenerateNewWorld(50, 50, 200);
         
-        // set the initial entity container
-        _entityContainer = WorldContainer.GetNode<Node2D>("EntityContainer");
+        _worldSketcher.DrawMap(_worldManager.WorldMap.MapCells);
+        _worldSketcher.DrawEntities(_worldManager.WorldMap.Entities);
         
-        RefreshWorldDrawing();
         SubscribeToEvents();
     }
-    
+
     private void SubscribeToEvents()
     {
         CalendarManager.OnHourAdvanced += OnHourAdvanced;
@@ -37,31 +37,11 @@ public partial class Main : Node
         CalendarManager.OnSeasonAdvanced += OnSeasonAdvanced;
         CalendarManager.OnYearAdvanced += OnYearAdvanced;
     }
-    
-    private void RefreshWorldDrawing()
-    {
-        ClearEntityContainer();
-        CallDeferred("RecreateEntityContainer");
-    }
 
-    private void ClearEntityContainer()
-    {
-        _entityContainer.QueueFree();
-    }
-    
-    private void RecreateEntityContainer()
-    {
-        _entityContainer = new Node2D();
-        WorldContainer.AddChild(_entityContainer);
-        
-        _worldSketcher?.DrawMap(_worldManager.WorldMap.MapCells);
-        _worldSketcher?.DrawEntities(_entityContainer, _worldManager.WorldMap.Entities);
-    }
-    
     private void OnHourAdvanced()
     {
         GD.Print("OnHourAdvanced - Main");
-        RefreshWorldDrawing();
+        _worldSketcher.RefreshEntityVisuals(_worldManager.WorldMap.Entities); 
     }
     
     private void OnDayAdvanced()

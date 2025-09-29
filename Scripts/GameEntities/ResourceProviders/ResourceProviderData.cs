@@ -4,7 +4,7 @@ namespace GodotBackgroundSimulation.Scripts.GameEntities.ResourceProviders;
 
 public static class ResourceProviderData
 {
-   public static ResourceProviderTemplate ConiferTree = new ResourceProviderTemplate
+   public static readonly ResourceProviderTemplate ConiferTree = new ResourceProviderTemplate
    {
       Name = "Conifer Tree",
       Type = ResourceProviderTypes.Tree,
@@ -18,10 +18,10 @@ public static class ResourceProviderData
             new GrowthStage { GrowthRequired = 5, HealthAtStage = 300 }
          }
       },
-      ScenePath = "res://Scenes/Tree.tscn"
+      ScenePath = "res://Scenes/GameEntities/TreeGameEntity.tscn"
    };
    
-   public static ResourceProviderTemplate DesiduousTree = new ResourceProviderTemplate
+   public static readonly ResourceProviderTemplate DeciduousTree = new ResourceProviderTemplate
    {
       Name = "Deciduous Tree",
       Type = ResourceProviderTypes.Tree,
@@ -35,10 +35,10 @@ public static class ResourceProviderData
             new GrowthStage { GrowthRequired = 700, HealthAtStage = 320 }
          }
       },
-      ScenePath = "res://Scenes/Tree.tscn"
+      ScenePath = "res://Scenes/GameEntities/TreeGameEntity.tscn"
    };
    
-   public static ResourceProviderTemplate BerryBush = new ResourceProviderTemplate
+   public static readonly ResourceProviderTemplate BerryBush = new ResourceProviderTemplate
    {
       Name = "Berry Bush",
       Type = ResourceProviderTypes.Bush,

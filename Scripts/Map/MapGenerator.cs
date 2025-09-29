@@ -5,12 +5,11 @@ using GodotBackgroundSimulation.Scripts.GameEntities.ResourceProviders;
 
 namespace GodotBackgroundSimulation.Scripts.Map;
 
-public class MapGenerator(WorldMap worldMapInstance, int entitiesToCreate = 2000)
+public class MapGenerator(WorldMap worldMapInstance, int entitiesToCreate)
 {
     public void GenerateSimpleMap()
     {
-        worldMapInstance.Entities = new List<GameEntity>();
-        MapCell[,] mapCells = new MapCell[worldMapInstance.Width, worldMapInstance.Height];
+        worldMapInstance.Entities = [];
         
         // Fill map with random entities
         for (int i = 0; i < entitiesToCreate; i++)
@@ -31,7 +30,7 @@ public class MapGenerator(WorldMap worldMapInstance, int entitiesToCreate = 2000
         {
             for (int y = 0; y < worldMapInstance.Height; y++)
             {
-                mapCells[x, y] = new MapCell(new Godot.Vector2(x, y), MapCellTypes.GrowthGround, 20, 100);
+                worldMapInstance.MapCells[x, y] = new MapCell(new Godot.Vector2(x, y), MapCellTypes.GrowthGround, 20, 100);
             }
         }
     }

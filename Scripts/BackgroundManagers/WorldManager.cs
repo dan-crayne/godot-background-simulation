@@ -9,19 +9,15 @@ public class WorldManager
 {
    public WorldMap WorldMap { get; private set; }
    
-   // TODO: determine if this should be split into separate collections for hot/cold entities (array for hot)
-   // private const int MaxHotEntities = 2000; // if needed for array
-   // public GameEntity [] FrequentlyUpdatedWorldEntities =  new GameEntity[MaxHotEntities];
-
    public WorldManager()
    {
       SubscribeToEvents();
    }
    
-   public void GenerateNewWorld(int widthInMapCells = 100, int heightInMapCells = 200)
+   public void GenerateNewWorld(int widthInMapCells, int heightInMapCells, int totalEntities)
    {
       WorldMap = new WorldMap(widthInMapCells, heightInMapCells);
-      WorldMap.GenerateSimpleRandomMap();
+      WorldMap.GenerateSimpleRandomMap(totalEntities);
    }
    
    private void SubscribeToEvents()
@@ -30,6 +26,14 @@ public class WorldManager
       CalendarManager.OnHourAdvanced += OnHourAdvanced;
       CalendarManager.OnSeasonAdvanced += OnSeasonAdvanced;
       CalendarManager.OnYearAdvanced += OnYearAdvanced;
+   }
+   
+   private void UnsubscribeFromEvents()
+   {
+      CalendarManager.OnDayAdvanced -= OnDayAdvanced;
+      CalendarManager.OnHourAdvanced -= OnHourAdvanced;
+      CalendarManager.OnSeasonAdvanced -= OnSeasonAdvanced;
+      CalendarManager.OnYearAdvanced -= OnYearAdvanced;
    }
 
    private void OnHourAdvanced()
@@ -46,14 +50,7 @@ public class WorldManager
 
    private void OnDayAdvanced()
    {
-      GD.Print("Day Advanced - updating entities");
-      foreach (var worldEntity in WorldMap.Entities)
-      {
-         if (worldEntity is IDailyUpdatedEntity entity)
-         {
-            entity.DailyUpdateTasks();
-         }
-      }
+      GD.Print("Day Advanced");
    }
 
    private void OnSeasonAdvanced()
@@ -65,5 +62,10 @@ public class WorldManager
    private void OnYearAdvanced()
    {
       GD.Print("Year advanced"); 
+   }
+   
+   ~WorldManager()
+   {
+      UnsubscribeFromEvents();
    }
 }
