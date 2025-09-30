@@ -10,10 +10,9 @@ namespace GodotBackgroundSimulation.Scripts.Map;
 /// </summary>
 public class MapChunk()
 {
-    public Vector2I ChunkWorldPosition { get; private set; }
-    
+    private readonly Vector2I _chunkWorldGridPosition;
     private readonly MapCell[,] _mapCells;
-    private List<GameEntity> _entities = [];
+    private readonly List<GameEntity> _entities = [];
     private readonly Vector2I _chunkSize;
     
     /// <summary>
@@ -21,12 +20,12 @@ public class MapChunk()
     /// The chunk will be populated with map cells and entities from the world map.
     /// </summary>
     /// <param name="worldMap"></param>
-    /// <param name="chunkTopLeftPosition"></param>
+    /// <param name="chunkTopLeftGridPosition"></param>
     /// <param name="chunkSize"></param>
-    public MapChunk(WorldMap worldMap, Vector2I chunkTopLeftPosition, Vector2I chunkSize) : this()
+    public MapChunk(WorldMap worldMap, Vector2I chunkTopLeftGridPosition, Vector2I chunkSize) : this()
     {
         _chunkSize = chunkSize;
-        ChunkWorldPosition = chunkTopLeftPosition;
+        _chunkWorldGridPosition = chunkTopLeftGridPosition;
         _mapCells = new MapCell[chunkSize.X, chunkSize.Y];
         
         LoadChunk(worldMap);
@@ -38,8 +37,8 @@ public class MapChunk()
         {
             for (var y = 0; y < _chunkSize.Y; y++)
             {
-                var worldX = ChunkWorldPosition.X + x;
-                var worldY = ChunkWorldPosition.Y + y;
+                var worldX = _chunkWorldGridPosition.X + x;
+                var worldY = _chunkWorldGridPosition.Y + y;
                 
                 if (worldX < worldMap.Width && worldY < worldMap.Height && worldX >= 0 && worldY >= 0)
                 {
@@ -48,7 +47,7 @@ public class MapChunk()
             }
         }
 
-        foreach (var entity in worldMap.Entities.Where(entity => IsPositionInChunk(entity.Position)))
+        foreach (var entity in worldMap.Entities.Where(entity => IsGridPositionInChunk(entity.GridPosition)))
         {
             _entities.Add(entity);
         }
@@ -64,29 +63,9 @@ public class MapChunk()
         return _mapCells;
     }
     
-    public bool IsPositionInChunk(Vector2 position)
+    private bool IsGridPositionInChunk(Vector2I gridPosition)
     {
-        return position.X >= ChunkWorldPosition.X && position.X < (ChunkWorldPosition.X + _chunkSize.X) &&
-               position.Y >= ChunkWorldPosition.Y && position.Y < (ChunkWorldPosition.Y + _chunkSize.Y);
-    }
-
-    public bool IsPositionAtOrBeyondLeftEdge(Vector2I position)
-    {
-        return position.X <= ChunkWorldPosition.X;
-    }
-    
-    public bool IsPositionAtOrBeyondRightEdge(Vector2I position)
-    {
-        return position.X >= (ChunkWorldPosition.X + _chunkSize.X - 1);
-    }
-    
-    public bool IsPositionAtOrAboveTopEdge(Vector2I position)
-    {
-        return position.Y <= ChunkWorldPosition.Y;
-    }
-
-    public bool IsPositionAtOrBelowBottomEdge(Vector2I position)
-    {
-        return position.Y >= (ChunkWorldPosition.Y + _chunkSize.Y - 1);
+        return gridPosition.X >= _chunkWorldGridPosition.X && gridPosition.X < (_chunkWorldGridPosition.X + _chunkSize.X) &&
+               gridPosition.Y >= _chunkWorldGridPosition.Y && gridPosition.Y < (_chunkWorldGridPosition.Y + _chunkSize.Y);
     }
 }

@@ -4,14 +4,14 @@ using GodotBackgroundSimulation.Scripts.Enums;
 
 namespace GodotBackgroundSimulation.Scripts.GameEntities;
 
-public class GameEntity(GameEntityId id, Vector2 position, float updateInterval = GameTimeIntervals.Day)
+public class GameEntity(GameEntityId id, Vector2I gridPosition, float updateInterval = GameTimeIntervals.Day)
 {
     public GameEntityId Id = id;
-    public Vector2 Position = position;
+    public Vector2I GridPosition = gridPosition;
     public float UpdateInterval = updateInterval;
     public GameEntityTypes EntityType = GameEntityTypes.Default;
 
-    public GameEntity() : this(new GameEntityId(), new Vector2(), GameTimeIntervals.Day)
+    public GameEntity() : this(new GameEntityId(), new Vector2I(), GameTimeIntervals.Day)
     {
     }
 

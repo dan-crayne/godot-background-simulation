@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://dg6niunfdfmy8"]
+[gd_scene load_steps=20 format=4 uid="uid://dg6niunfdfmy8"]
 
 [ext_resource type="Script" uid="uid://dypayc0djym7v" path="res://Scripts/GodotScripts/Main.cs" id="1_jw32o"]
 [ext_resource type="Script" uid="uid://bpi0rcxkt85qe" path="res://addons/Fantail-Interactive.top_down_camera/td_camera_2d.gd" id="2_50glp"]
@@ -15,16 +15,9 @@ texture_region_size = Vector2i(8, 8)
 0:0/0 = 0
 0:1/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_50glp"]
-texture = ExtResource("6_grg3l")
-texture_region_size = Vector2i(8, 8)
-0:0/0 = 0
-0:1/0 = 0
-
 [sub_resource type="TileSet" id="TileSet_8gbba"]
 tile_size = Vector2i(8, 8)
 sources/0 = SubResource("TileSetAtlasSource_kry3j")
-sources/1 = SubResource("TileSetAtlasSource_50glp")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_21xkr"]
 radius = 8.0
@@ -177,12 +170,10 @@ script = ExtResource("6_50glp")
 z_index = -1
 y_sort_enabled = true
 texture_filter = 1
-tile_map_data = PackedByteArray("AAAAAP//AQAAAAAAAAABAP//AQAAAAAAAAACAP//AQAAAAAAAAADAP//AQAAAAAAAAAEAP//AQAAAAAAAAAFAP//AQAAAAAAAAAGAP//AQAAAAAAAAAHAP//AQAAAAAAAAAIAP//AQAAAAAAAAAJAP//AQAAAAAAAAAKAP//AQAAAAAAAAALAP//AQAAAAAAAAAMAP//AQAAAAAAAAANAP//AQAAAAAAAAAOAP//AQAAAAAAAAAPAP//AQAAAAAAAAAQAP//AQAAAAAAAAARAP//AQAAAAAAAAASAP//AQAAAAAAAAATAP//AQAAAAAAAAAUAP//AQAAAAAAAAAVAP//AQAAAAAAAAAWAP//AQAAAAAAAAAXAP//AQAAAAAAAAAYAP//AQAAAAAAAAAZAP//AQAAAAAAAAAaAP//AQAAAAAAAAAbAP//AQAAAAAAAAAcAP//AQAAAAAAAAAdAP//AQAAAAAAAAA=")
 tile_set = SubResource("TileSet_8gbba")
 
 [node name="Player" type="CharacterBody2D" parent="."]
 y_sort_enabled = true
-position = Vector2(116, 70)
 script = ExtResource("7_frkhe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]

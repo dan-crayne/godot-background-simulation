@@ -14,7 +14,7 @@ public class MapGenerator(WorldMap worldMapInstance, int entitiesToCreate)
         // Fill map with random entities
         for (int i = 0; i < entitiesToCreate; i++)
         {
-            var randomPosition = new Godot.Vector2(GD.Randi() % worldMapInstance.Width, GD.Randi() % worldMapInstance.Height);
+            var randomPosition = new Godot.Vector2I((int)(GD.Randi() % worldMapInstance.Width), (int)(GD.Randi() % worldMapInstance.Height));
             
             var possibleEntities = new List<GameEntity>()
             {

@@ -3,31 +3,31 @@ using Godot;
 
 namespace GodotBackgroundSimulation.Scripts.GodotScripts.GameEntities;
 
-public partial class GameEntityNodePool<T>(string entityScenePath, int numberToPreload = 100) : Node2D
+public partial class GameEntityNodePool<T>(string entityScenePath, int numberToPreload) : Node2D
     where T : GameEntityVisual
 {
-    protected readonly Queue<T> Pool = new ();
-    protected string EntityScenePath { get; private set; } = entityScenePath;
-    protected int NumberToPreload { get; private set; } = numberToPreload;
+    private readonly Queue<T> _pool = new ();
+    private string _entityScenePath = entityScenePath;
+    private int _numberToPreload = numberToPreload;
     
-    public int Count => Pool.Count;
+    private int Count => _pool.Count;
     
     public override void _Ready()
     {
-        ExpandPool(NumberToPreload);
+        ExpandPool(_numberToPreload);
     }
 
     public T Get()
     {
-        if (Pool.Count > 0)
+        if (_pool.Count > 0)
         {
-            var entity = Pool.Dequeue();
+            var entity = _pool.Dequeue();
             entity.Hide();
             return entity;
         }
         else
         {
-            var entityScene = GD.Load<PackedScene>(EntityScenePath);
+            var entityScene = GD.Load<PackedScene>(_entityScenePath);
             var entity = entityScene.Instantiate<T>();
             AddChild(entity);
             return entity;
@@ -36,27 +36,19 @@ public partial class GameEntityNodePool<T>(string entityScenePath, int numberToP
     
     public void Release(T entity)
     {
-        entity.Visible = false;
-        Pool.Enqueue(entity);
+        entity.Hide();
+        _pool.Enqueue(entity);
     }
     
-    public void ReleaseAll(IEnumerable<T> entities)
+    private void ExpandPool(int additionalCount)
     {
-        foreach (var entity in entities)
-        {
-            Release(entity);
-        }
-    }
-    
-    public void ExpandPool(int additionalCount)
-    {
-        var scene = GD.Load<PackedScene>(EntityScenePath);
+        var scene = GD.Load<PackedScene>(_entityScenePath);
         for (var i = 0; i < additionalCount; i++)
         {
             var entity = scene.Instantiate<T>();
             entity.Hide();
             AddChild(entity);
-            Pool.Enqueue(entity);
+            _pool.Enqueue(entity);
         }
     }
 }

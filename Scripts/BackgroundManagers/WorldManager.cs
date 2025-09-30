@@ -64,6 +64,11 @@ public class WorldManager
       GD.Print("Year advanced"); 
    }
    
+   private void OnExitTree()
+   {
+      UnsubscribeFromEvents();
+   }
+   
    ~WorldManager()
    {
       UnsubscribeFromEvents();

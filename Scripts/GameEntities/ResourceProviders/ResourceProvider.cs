@@ -10,7 +10,7 @@ public class ResourceProvider : GameEntity, IHourlyUpdatedEntity
     private float _currentHealth;
     private float _currentGrowth;
 
-    public ResourceProvider(ResourceProviderTemplate template, Vector2 position) : base(new GameEntityId(), position, GameTimeIntervals.Hour)
+    public ResourceProvider(ResourceProviderTemplate template, Vector2I gridPosition) : base(new GameEntityId(), gridPosition, GameTimeIntervals.Hour)
     {
         _template = template;
         _currentGrowth = 0;
