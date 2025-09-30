@@ -38,7 +38,7 @@ public class WorldManager
 
    private void OnHourAdvanced()
    {
-      GD.Print("Hour advanced - updating entities");
+      // GD.Print("Hour advanced - updating entities");
       foreach (var worldEntity in WorldMap.Entities)
       {
          if (worldEntity is IHourlyUpdatedEntity entity)

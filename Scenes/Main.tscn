@@ -139,10 +139,11 @@ _data = {
 &"side-walk": SubResource("Animation_d1ilt")
 }
 
-[node name="Main" type="Node2D" node_paths=PackedStringArray("WorldSketcher")]
+[node name="Main" type="Node2D" node_paths=PackedStringArray("WorldSketcher", "PlayerController")]
 y_sort_enabled = true
 script = ExtResource("1_jw32o")
 WorldSketcher = NodePath("World/WorldSketcher")
+PlayerController = NodePath("Player")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
@@ -181,6 +182,7 @@ tile_set = SubResource("TileSet_8gbba")
 
 [node name="Player" type="CharacterBody2D" parent="."]
 y_sort_enabled = true
+position = Vector2(116, 70)
 script = ExtResource("7_frkhe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]

@@ -64,7 +64,7 @@ public class MapChunk()
         return _mapCells;
     }
     
-    private bool IsPositionInChunk(Vector2 position)
+    public bool IsPositionInChunk(Vector2 position)
     {
         return position.X >= ChunkWorldPosition.X && position.X < (ChunkWorldPosition.X + _chunkSize.X) &&
                position.Y >= ChunkWorldPosition.Y && position.Y < (ChunkWorldPosition.Y + _chunkSize.Y);
