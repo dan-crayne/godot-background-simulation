@@ -1,0 +1,13 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://kwgghwu8ql15"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3hnc3"]
+bg_color = Color(0.44313726, 0.64705884, 0.6, 0.6862745)
+border_color = Color(0.9033407, 0.80114585, 0.29485273, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[resource]
+default_font_size = 18
+Panel/styles/panel = SubResource("StyleBoxFlat_3hnc3")

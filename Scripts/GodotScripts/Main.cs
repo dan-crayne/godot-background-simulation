@@ -8,12 +8,12 @@ namespace GodotBackgroundSimulation.Scripts.GodotScripts;
 
 public partial class Main : Node
 {
-    [Export]
-    public WorldSketcher WorldSketcher { get; set; }
-    
-    [Export]
-    public PlayerController PlayerController { get; set; }
-    
+    public static Main Instance { get; private set; }
+
+    [Export] public WorldSketcher WorldSketcher { get; set; }
+
+    [Export] public PlayerController PlayerController { get; set; }
+
     private WorldManager _worldManager;
 
     private static readonly Vector2I ChunkSize = new(20, 20);
@@ -22,19 +22,42 @@ public partial class Main : Node
 
     public override void _Ready()
     {
+        if (Instance != null)
+        {
+            GD.PrintErr("Main: Instance already exists");
+            QueueFree();
+            return;
+        }
+
+        Instance = this;
+
         if (WorldSketcher == null)
         {
             GD.PrintErr("Main: WorldSketcher not found");
             return;
         }
-        
+
         _worldManager = new WorldManager();
         _worldManager.GenerateNewWorld(200, 200, 2000);
 
         SubscribeToEvents();
     }
-    
-    private static Vector2I WorldGridToChunkGridPosition(Vector2I worldGridPosition)
+
+    public Vector2I GetChunkSize()
+    {
+        return ChunkSize;
+    }
+
+    public Vector2I GetPlayerWorldCellPosition()
+    {
+        var tileMapLayer = WorldSketcher.TileMapLayer;
+        var playerPosition = PlayerController.Position;
+        var playerTilemaplayerLocalPosition = tileMapLayer.ToLocal(playerPosition);
+        var cellPosition = tileMapLayer.LocalToMap(playerTilemaplayerLocalPosition);
+        return cellPosition;
+    }
+
+private static Vector2I WorldGridToChunkGridPosition(Vector2I worldGridPosition)
     {
         var chunkX = Mathf.FloorToInt((float)worldGridPosition.X / ChunkSize.X);
         var chunkY = Mathf.FloorToInt((float)worldGridPosition.Y / ChunkSize.Y);

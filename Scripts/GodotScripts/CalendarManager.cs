@@ -1,11 +1,13 @@
 using System;
 using Godot;
 using GodotBackgroundSimulation.Scripts.Constants;
+using godotbackgroundsimulation.Scripts.Models;
 
 namespace GodotBackgroundSimulation.Scripts.GodotScripts;
 
 public partial class CalendarManager : Node
 {
+   public static CalendarManager Instance { get; private set; }
    public static event Action OnDayAdvanced;
    public static event Action OnHourAdvanced;
    public static event Action OnSeasonAdvanced;
@@ -19,7 +21,14 @@ public partial class CalendarManager : Node
 
    public override void _Ready()
    {
-      GD.Print("CalendarManager");
+      if (Instance != null)
+      {
+         GD.PrintErr("Multiple instances of CalendarManager detected. There should only be one instance.");
+         QueueFree();
+         return;
+      }
+      Instance = this;
+      
       var parent = GetParent();
       _timeManager = parent.GetNodeOrNull<TimeManager>("TimeManager");
       if (_timeManager == null)
@@ -46,6 +55,19 @@ public partial class CalendarManager : Node
    public int GetYear()
    {
       return (int)(_timeManager?.GetElapsedTime() / GameTimeIntervals.Year ?? 0);
+   }
+   
+   public GameTime GetCurrentTime()
+   {
+      return new GameTime
+      {
+         Year = GetYear(),
+         Season = GetSeason(),
+         Month = GetSeason(),
+         Day = GetDay() % 30,
+         Hour = GetHour() % 24,
+         Minute = 0
+      };
    }
    
    public override void _Process(double deltaTime)

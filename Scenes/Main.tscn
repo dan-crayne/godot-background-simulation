@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://dg6niunfdfmy8"]
+[gd_scene load_steps=21 format=4 uid="uid://dg6niunfdfmy8"]
 
 [ext_resource type="Script" uid="uid://dypayc0djym7v" path="res://Scripts/GodotScripts/Main.cs" id="1_jw32o"]
 [ext_resource type="Script" uid="uid://bpi0rcxkt85qe" path="res://addons/Fantail-Interactive.top_down_camera/td_camera_2d.gd" id="2_50glp"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://dtaf7oex7ia5r" path="res://Scripts/GodotScripts/GameEntities/TreeGameEntityPool.cs" id="6_50glp"]
 [ext_resource type="Texture2D" uid="uid://wyjwsxdltex5" path="res://Sprites/Tiles/tileset.png" id="6_grg3l"]
 [ext_resource type="Script" uid="uid://c300g4mdq2dn2" path="res://Scripts/GodotScripts/PlayerController.cs" id="7_frkhe"]
+[ext_resource type="PackedScene" uid="uid://cmi7r524gvrxt" path="res://Scenes/GameplayUI.tscn" id="9_vy5pj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kry3j"]
 texture = ExtResource("6_grg3l")
@@ -138,14 +139,6 @@ script = ExtResource("1_jw32o")
 WorldSketcher = NodePath("World/WorldSketcher")
 PlayerController = NodePath("Player")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2, 2)
-drag_horizontal_enabled = true
-drag_vertical_enabled = true
-script = ExtResource("2_50glp")
-min_zoom = 4.0
-max_zoom = 1.0
-
 [node name="TimeManager" type="Node" parent="."]
 script = ExtResource("3_vy5pj")
 
@@ -222,3 +215,15 @@ libraries = {
 &"": SubResource("AnimationLibrary_fdnlq")
 }
 speed_scale = 0.75
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+zoom = Vector2(2, 2)
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+script = ExtResource("2_50glp")
+min_zoom = 4.0
+max_zoom = 1.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GameplayUI" parent="CanvasLayer" instance=ExtResource("9_vy5pj")]
